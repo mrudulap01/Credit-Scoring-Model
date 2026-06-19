@@ -18,6 +18,9 @@ A full-stack, production-ready Machine Learning application designed to predict 
 - **Actionable Insights:** Dynamically provides the end-user with "Pro-Tips" and specific suggestions to improve their score based on their exact risk bracket.
 - **Premium Aesthetics:** Features an animated deep-blue gradient background, frosted glassmorphism form cards, neon hover-glows, and user-friendly human-readable dropdowns.
 
+> **[TODO: Attach Screenshot]** Replace the path below with a screenshot of your beautiful web app!
+> `![Streamlit Dashboard UI](path/to/your/app_screenshot.png)`
+
 ---
 
 ## 📁 Project Structure
@@ -89,7 +92,11 @@ Navigate to `http://localhost:8501` in your web browser to interact with the pre
 - **Dataset:** German Credit Dataset (fetched dynamically via OpenML).
 - **Target Variable:** `class` (Good vs. Bad credit risk).
 - **Best Performing Algorithm:** Random Forest Classifier.
-- **Optimization Strategy:** Because the dataset inherently contains a 70/30 class imbalance, traditional Accuracy is a flawed metric. The pipeline actively targets **Area Under the Receiver Operating Characteristic Curve (ROC-AUC)**, ensuring the model effectively distinguishes between safe and risky applicants.
+- **Optimization Strategy:** Because the dataset inherently contains a 70/30 class imbalance, traditional model training results in heavy bias towards the majority class. The pipeline integrates **SMOTE (Synthetic Minority Over-sampling Technique)** and **Balanced Class Weights** to effectively handle this imbalance, while actively tuning hyperparameters for maximized **Accuracy**.
+
+> **[TODO: Attach Screenshot]** Replace the paths below with the plots generated in your `reports/figures/` folder to prove model performance!
+> `![ROC Curve](reports/figures/roc_curve_Tuned_Random_Forest.png)`
+> `![Confusion Matrix](reports/figures/confusion_matrix_Tuned_Random_Forest.png)`
 
 ---
 

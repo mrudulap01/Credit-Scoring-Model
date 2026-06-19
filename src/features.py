@@ -62,8 +62,14 @@ def preprocess_data(input_path="data/raw/credit_data.csv", output_dir="data/proc
     cat_feature_names = preprocessor.named_transformers_['cat'].named_steps['onehot'].get_feature_names_out(categorical_features)
     feature_names = numeric_features + list(cat_feature_names)
     
+    print("Applying SMOTE to balance training data...")
+    from imblearn.over_sampling import SMOTE
+    smote = SMOTE(random_state=random_state)
+    X_train_resampled, y_train_resampled = smote.fit_resample(X_train_processed, y_train)
+    
     # Convert back to DataFrame for easier inspection and saving
-    X_train_df = pd.DataFrame(X_train_processed, columns=feature_names)
+    X_train_df = pd.DataFrame(X_train_resampled, columns=feature_names)
+    y_train = pd.Series(y_train_resampled, name='class')
     X_test_df = pd.DataFrame(X_test_processed, columns=feature_names)
     
     # Save processed data

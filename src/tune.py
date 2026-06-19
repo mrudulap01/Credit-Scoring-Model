@@ -3,7 +3,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 import joblib
 import os
-from evaluate import evaluate_model
+from .evaluate import evaluate_model
 
 def tune_random_forest(X_train_path, X_test_path, y_train_path, y_test_path):
     print("Loading processed data for tuning...")
@@ -13,18 +13,19 @@ def tune_random_forest(X_train_path, X_test_path, y_train_path, y_test_path):
     y_test = pd.read_csv(y_test_path).squeeze()
     
     # We select Random Forest as it was the best performing model in Phase 3
-    rf = RandomForestClassifier(random_state=42)
+    rf = RandomForestClassifier(random_state=42, class_weight='balanced')
     
     # Define hyperparameter grid
     param_grid = {
-        'n_estimators': [50, 100, 200],
-        'max_depth': [None, 10, 20],
-        'min_samples_split': [2, 5, 10]
+        'n_estimators': [100, 200, 300],
+        'max_depth': [None, 10, 20, 30],
+        'min_samples_split': [2, 5, 10],
+        'min_samples_leaf': [1, 2, 4]
     }
     
     print("\nStarting Grid Search for Random Forest...")
     grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, 
-                               cv=5, n_jobs=-1, scoring='roc_auc', verbose=1)
+                               cv=5, n_jobs=-1, scoring='accuracy', verbose=1)
     
     grid_search.fit(X_train, y_train)
     

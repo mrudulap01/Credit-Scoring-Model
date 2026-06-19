@@ -3,7 +3,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 import os
-from evaluate import evaluate_model
+from .evaluate import evaluate_model
 
 def train_and_evaluate(X_train_path, X_test_path, y_train_path, y_test_path):
     print("Loading processed data...")
@@ -14,9 +14,9 @@ def train_and_evaluate(X_train_path, X_test_path, y_train_path, y_test_path):
     
     # Define models dictionary
     models = {
-        "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
-        "Decision Tree": DecisionTreeClassifier(random_state=42),
-        "Random Forest": RandomForestClassifier(random_state=42)
+        "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42, class_weight='balanced'),
+        "Decision Tree": DecisionTreeClassifier(random_state=42, class_weight='balanced'),
+        "Random Forest": RandomForestClassifier(random_state=42, class_weight='balanced')
     }
     
     results = {}
